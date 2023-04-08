@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug (launch)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/${fileBasenameNoExtension}.exe",
+            "miDebuggerPath": "${workspaceFolder}/bin/gdb/bin/gdb.exe",
+            "linux": {
+                "program": "${workspaceFolder}/build/${fileBasenameNoExtension}",
+                "miDebuggerPath": "gdb",
+            },
+            "preLaunchTask": "LD-link",
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}",
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                { "text": "set disassembly-flavor intel" },
+                { "text": "-enable-pretty-printing" }
+            ],
+        }
+    ]
+}
