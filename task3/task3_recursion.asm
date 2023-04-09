@@ -1,5 +1,5 @@
 %include "rw32-2022.inc"
-; ITERATIVNI VERZE
+; REKURZIVNI VERZE
 section .data
 
 section .text
