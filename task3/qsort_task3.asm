@@ -45,8 +45,18 @@ compare:
     mov eax, [ebp + 8]
     mov eax, [eax]
     mov ebx, [ebp + 12]
-    sub eax, [ebx]
 
+    cmp eax, [ebx]
+    jl lt 
+    jg gt 
+    mov eax, 0
+    jmp end
+lt:
+    mov eax, -1
+    jmp end
+gt:
+    mov eax, 1
+end:
     pop ebx
 
     pop ebp
@@ -75,11 +85,13 @@ task23:
     pop ecx
     pop edx
     
-    push edi
+    push edi  
+    push esi ; movsd modifies the content of ESI
 
     mov edi, eax
     rep movsd
 
+    pop esi
     pop edi
     pop ebp
     ret
@@ -87,7 +99,6 @@ task23:
 CMAIN:
     push ebp
     mov ebp, esp
-
 
     mov esi, arr
     mov ecx, 5
