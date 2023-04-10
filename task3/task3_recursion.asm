@@ -136,7 +136,6 @@ CMAIN:
 
 	mov ecx, 7
 	call task23
-	add esp, 4
 
 	pop ebp
 	ret
