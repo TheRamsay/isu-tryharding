@@ -159,6 +159,11 @@ konec:
 ;
 task23:
     CEXTERN malloc
+    push ebx
+    push ecx
+    push edx
+    push esi
+    push edi
     cmp ecx,0
     jle error
     push ecx
@@ -173,8 +178,12 @@ task23:
     mov esi,0
     mov [eax],word 0
     inc esi
+    cmp esi,ecx
+    je end1
     mov [eax+2],word 1
     inc esi
+    cmp esi,ecx
+    je end1
 fibonacci:
     mov edi,[eax+esi*2-2]
     mov edx,[eax+esi*2-4]
@@ -190,5 +199,10 @@ error:
     mov eax,0
     jmp end1
 end1:
+    pop edi
+    pop esi
+    pop edx
+    pop ecx
+    pop ebx
     ret
 
