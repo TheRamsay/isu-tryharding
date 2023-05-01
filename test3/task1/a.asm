@@ -1,5 +1,4 @@
 %include "rw32-2022.inc"
-; Chytrejsi verze s pouzitim retezcovych instrukci a prefixu
 section .data
 	arr1 dd 4.0, 2.0, 4.0, 8.0
     error_value dd 0
