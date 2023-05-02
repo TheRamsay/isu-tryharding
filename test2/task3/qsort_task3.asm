@@ -1,7 +1,7 @@
 %include "rw32-2022.inc"
 
 section .data
-    arr dd 0, -20, 100, 4, -55
+    arr dd 0, -20, -100, -4, -55
 section .text
 
 ;--- Úkol 3 --- 
@@ -46,17 +46,7 @@ compare:
     mov eax, [eax]
     mov ebx, [ebp + 12]
 
-    cmp eax, [ebx]
-    jl lt 
-    jg gt 
-    mov eax, 0
-    jmp end
-lt:
-    mov eax, -1
-    jmp end
-gt:
-    mov eax, 1
-end:
+    sub eax, [ebx]
     pop ebx
 
     pop ebp
