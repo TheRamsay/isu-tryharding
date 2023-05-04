@@ -52,6 +52,7 @@ Q_NaN EQU 0x7FC00001
 
 ; Jen pro testovaci ucely, v testu tuhle funkce nepiseme
 nan_fn:
+    finit 
     push dword Q_NaN
     fld dword [esp]
     add esp, 4
@@ -63,6 +64,7 @@ my_fn:
     push ebp
     mov ebp,esp
 
+    finit 
     fld dword [ebp+8]
 
     pop ebp
@@ -71,6 +73,8 @@ my_fn:
 task31:
     push ebp
     mov ebp,esp 
+
+    sub esp, 4
 
     push esi
 
@@ -107,15 +111,25 @@ task31:
 
     fldz ; acc = 0
 .for:
+    push eax
+    push ecx
+    push edx
+    fst dword [ebp - 4] ; save st0 to local variable
+
     push dword [esi] ; push *currentElement 
     call edx ; call f(*currentElement)
     add esp, 4 ; CDECL cleanup
 
+    pop edx
+    pop ecx
+    pop eax
+
     ; compare result of f() with itself, to check if it is NaN. Compare has to be unordered, to not cause an exception
-    fucomi st0 
+    fucomi st0
     jp .nan_err ; if parity flag is set, then it is NaN
 
-    fmul st0, st0 ; st0 = f(array[i]) * f(array[i])
+    fmul st0, st0 ; st1 = f(array[i]) * f(array[i])
+    fld dword [ebp - 4] ; restor st0 from local variable
     faddp ; st0 = acc + f(array[i]) * f(array[i])
     add esi, 4 ; arrayPtr += sizeof(long)
     loop .for
@@ -128,6 +142,7 @@ task31:
 
     fsqrt ; st0 = sqrt(1/N * acc)
 .end:
+    add esp, 4 ; cleanup local variables
     pop esi
     pop ebp
     ret
@@ -147,7 +162,7 @@ CMAIN:
     ; add esp, 16
 
     push error_value
-    push my_fn 
+    push nan_fn
     push 4
     push arr1
     call task31

@@ -18,11 +18,8 @@ cmp:
     ; st(0) = a
     ; st(1) = b
 
-    fcompp
-    ; Ulozi obsah stavoveho registru FPU do AX
-    fstsw ax
-    ; Ulozi obsah AH do EFLAGS registru
-    sahf
+    fcomip
+    fstp st0
 
     ja gt
     jb lt

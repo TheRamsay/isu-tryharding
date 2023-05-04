@@ -85,7 +85,7 @@ cmp:
     fstp st0
 
     je .eq
-    jg .gt
+    ja .gt
     mov eax , -1
 .end:
     pop ebp

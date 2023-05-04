@@ -5,6 +5,8 @@ section .data
 
 section .text
 
+; Zadani: Random somarina na strtol z 2021 ( asi nebude na testu, moc ez)
+
 task31:
     push ebp
     mov ebp, esp
